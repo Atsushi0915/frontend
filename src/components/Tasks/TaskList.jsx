@@ -1,12 +1,13 @@
-import React, { memo, useContext } from 'react'
+import React, { memo, useContext, useState } from 'react'
 import styled from "styled-components";
 import axios from 'axios'
 import { TaskContext } from '../../providers/TaskProvider';
-import { TaskCard } from "../TaskCard/TaskCard";
+import { TaskCard } from "./TaskCard/TaskCard";
 import { FlashContext } from '../../providers/FlashProvider';
 import { CompleteTaskContext } from '../../providers/CompleteTaskProvider';
 import { taskDeleteUrl, taskUpdataUrl } from '../../urls/urls';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { ShowTask } from './ShowTask ';
 
 
 export const TaskList = memo(() => {
@@ -14,6 +15,11 @@ export const TaskList = memo(() => {
   const { completeTasks, setCompleteTasks } = useContext(CompleteTaskContext)
   const { setFlashFlag } = useContext(FlashContext)
 
+  const navigate = useNavigate()
+
+  const onClickNavigate = (ID) => {
+    navigate(`/edittask/${ID}`)
+  }
 
   const onClickConplete = (index, task) => {
     const taskData = {
@@ -68,10 +74,14 @@ export const TaskList = memo(() => {
           return (
             <SListDiv key={index} className={BListDiv}>
               <li >
-                <Link to={`/edittask/${task.id}`} >
-                  {index + 1} : {task.title}
-                </Link>
+                {/* <Link to={`/edittask/${task.id}`} > */}
+                {index + 1} : {task.title}
+                {/* </Link> */}
               </li>
+              <SShowTaskButton className={BShowTaskButton} data-bs-toggle="modal" data-bs-target="#taskModal">
+                詳細
+              </SShowTaskButton>
+              <ShowTask task={task} onClickNavigate={onClickNavigate} />
               <SConpleteButton onClick={() => onClickConplete(index, task)} className={BConpleteButton}>
                 完了
               </SConpleteButton>
@@ -91,8 +101,15 @@ const BListDiv = 'd-flex flex-row flex-wrap border-top pt-3 align-items-center m
 const SListDiv = styled.div`
 `
 
-const BConpleteButton = 'btn-sm btn-outline-info text-primary mx-3'
+const BConpleteButton = 'btn-sm btn-outline-info text-primary me-3'
 const SConpleteButton = styled.button`
+  border-radius: 10px;
+  background-color: #c6eeff;
+  font-weight: bold;
+  font-size: 11px;
+`
+const BShowTaskButton = 'btn-sm btn-outline-info text-primary mx-3'
+const SShowTaskButton = styled.button`
   border-radius: 10px;
   background-color: #c6eeff;
   font-weight: bold;

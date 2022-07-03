@@ -1,7 +1,7 @@
 import React, { memo, useContext } from "react";
 import styled from "styled-components"
 
-import { TaskCard } from "../TaskCard/TaskCard";
+import { TaskCard } from "./TaskCard/TaskCard";
 import { FlashContext } from "../../providers/FlashProvider";
 import { CompleteTaskContext } from "../../providers/CompleteTaskProvider";
 import axios from "axios";

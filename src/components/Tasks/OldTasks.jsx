@@ -2,12 +2,15 @@ import axios from "axios";
 import React, { memo, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
 import { FlashContext } from "../../providers/FlashProvider";
 import { OldTaskContext } from "../../providers/OldTaskProvider";
 import { SearchNameContext } from "../../providers/SearchNameProvider";
+
 import { taskDestroyAllUrl } from "../../urls/urls";
 import { SearchTasks } from "../inputform/SearchTasks";
-import { TaskCard } from "../TaskCard/TaskCard";
+import { TaskCard } from "./TaskCard/TaskCard";
+
 
 
 export const OldTasks = memo(() => {
