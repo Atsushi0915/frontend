@@ -103,19 +103,19 @@ const SListDiv = styled.div`
   
 `
 
-const BBackButton = 'btn-sm btn-outline-success mx-2'
+const BBackButton = 'btn-sm btn-outline-success me-2'
 const SBackButton = styled.button`
   border-radius: 10px;
   background-color: #e0ffe2;
   font-weight: bold;
-  font-size: 11px;
+  font-size: 12px;
 `
 
-const BDeleteButton = 'btn-sm btn-outline-danger mx-2'
+const BDeleteButton = 'btn-sm btn-outline-danger'
 const SDeleteButton = styled.button`
   border-radius: 10px;
   background-color: #ffe1e1;
   font-weight: bold;
-  font-size: 11px;
+  font-size: 12px;
 `
 

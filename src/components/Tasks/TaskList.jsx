@@ -114,14 +114,14 @@ const SConpleteButton = styled.button`
   border-radius: 10px;
   background-color: #c6eeff;
   font-weight: bold;
-  font-size: 11px;
+  font-size: 12px;
 `
 
 const BCancelButton = 'btn-sm btn-outline-warning '
 const SCancelButton = styled.button`
   border-radius: 10px;
   font-weight: bold;
-  font-size: 11px;
+  font-size: 12px;
   color: #7c7a00;
   text-align: right;
 `
