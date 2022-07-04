@@ -1,12 +1,15 @@
 import React, { memo, useContext } from "react";
+import axios from "axios";
 import styled from "styled-components"
+import { taskUpdataUrl } from "../../urls/urls";
 
 import { TaskCard } from "./TaskCard/TaskCard";
 import { FlashContext } from "../../providers/FlashProvider";
+
 import { CompleteTaskContext } from "../../providers/CompleteTaskProvider";
-import axios from "axios";
 import { TaskContext } from "../../providers/TaskProvider";
-import { taskUpdataUrl } from "../../urls/urls";
+import { ShowIconButton } from "../iconButton/ShowIconButton";
+import { ShowTask } from "./ShowTask ";
 
 
 export const CompleteTasks = memo(() => {
@@ -73,12 +76,18 @@ export const CompleteTasks = memo(() => {
           return (
             <SListDiv key={index} className={BListDiv}>
               <li >{index + 1} : {task.title}</li>
-              <SBackButton onClick={() => { onClickBack(index, task) }} className={BBackButton}>
-                戻す
-              </SBackButton>
-              <SDeleteButton onClick={() => { onClickDelete(index, task) }} className={BDeleteButton}>
-                削除
-              </SDeleteButton>
+
+              <ShowIconButton task={task} />
+              <ShowTask task={task} />
+
+              <div>
+                <SBackButton onClick={() => { onClickBack(index, task) }} className={BBackButton}>
+                  戻す
+                </SBackButton>
+                <SDeleteButton onClick={() => { onClickDelete(index, task) }} className={BDeleteButton}>
+                  削除
+                </SDeleteButton>
+              </div>
             </SListDiv>
           )
         })}

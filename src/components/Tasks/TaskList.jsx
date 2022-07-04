@@ -1,25 +1,24 @@
 import React, { memo, useContext, useState } from 'react'
-import styled from "styled-components";
 import axios from 'axios'
-import { TaskContext } from '../../providers/TaskProvider';
+import styled from "styled-components";
+import { taskDeleteUrl, taskUpdataUrl } from '../../urls/urls';
+
 import { TaskCard } from "./TaskCard/TaskCard";
+import { ShowTask } from './ShowTask ';
+import { ShowIconButton } from '../iconButton/ShowIconButton';
+
 import { FlashContext } from '../../providers/FlashProvider';
 import { CompleteTaskContext } from '../../providers/CompleteTaskProvider';
-import { taskDeleteUrl, taskUpdataUrl } from '../../urls/urls';
-import { Link, useNavigate } from 'react-router-dom';
-import { ShowTask } from './ShowTask ';
+import { TaskContext } from '../../providers/TaskProvider';
 
 
 export const TaskList = memo(() => {
   const { taskLists, setTaskLists } = useContext(TaskContext);
   const { completeTasks, setCompleteTasks } = useContext(CompleteTaskContext)
   const { setFlashFlag } = useContext(FlashContext)
+  const [taskId, setTaskId] = useState('')
 
-  const navigate = useNavigate()
 
-  const onClickNavigate = (ID) => {
-    navigate(`/edittask/${ID}`)
-  }
 
   const onClickConplete = (index, task) => {
     const taskData = {
@@ -42,7 +41,6 @@ export const TaskList = memo(() => {
       })
   }
 
-
   const onClickCancel = (index, task) => {
     const sure = window.confirm('タスクを取り消しますか？');
     if (sure) {
@@ -57,9 +55,13 @@ export const TaskList = memo(() => {
         .catch(e => {
           console.log(e)
         })
-
     }
   }
+
+  const onClickTaskIdSet = () => {
+    alert('TaskId')
+  }
+
 
 
   return (
@@ -73,21 +75,25 @@ export const TaskList = memo(() => {
         {taskLists === 0 || taskLists.map((task, index) => {
           return (
             <SListDiv key={index} className={BListDiv}>
-              <li >
-                {/* <Link to={`/edittask/${task.id}`} > */}
+              <li className="me-2">
                 {index + 1} : {task.title}
-                {/* </Link> */}
               </li>
-              <SShowTaskButton className={BShowTaskButton} data-bs-toggle="modal" data-bs-target="#taskModal">
-                詳細
-              </SShowTaskButton>
-              <ShowTask task={task} onClickNavigate={onClickNavigate} />
-              <SConpleteButton onClick={() => onClickConplete(index, task)} className={BConpleteButton}>
-                完了
-              </SConpleteButton>
-              <SCancelButton onClick={() => onClickCancel(index, task)} className={BCancelButton}>
-                取消
-              </SCancelButton>
+
+              <ShowIconButton task={task} />
+              <ShowTask task={task} />
+
+              <div>
+                <SConpleteButton onClick={() => onClickConplete(index, task)}
+                  className={BConpleteButton}>
+                  完了
+                </SConpleteButton>
+
+                <SCancelButton
+                  onClick={() => onClickCancel(index, task)}
+                  className={BCancelButton}>
+                  取消
+                </SCancelButton>
+              </div>
             </SListDiv>
           )
         })}
@@ -97,19 +103,14 @@ export const TaskList = memo(() => {
 });
 
 
+// ######## styled ################################################
+
 const BListDiv = 'd-flex flex-row flex-wrap border-top pt-3 align-items-center my-2'
 const SListDiv = styled.div`
 `
 
-const BConpleteButton = 'btn-sm btn-outline-info text-primary me-3'
+const BConpleteButton = 'btn-sm btn-outline-info text-primary me-2'
 const SConpleteButton = styled.button`
-  border-radius: 10px;
-  background-color: #c6eeff;
-  font-weight: bold;
-  font-size: 11px;
-`
-const BShowTaskButton = 'btn-sm btn-outline-info text-primary mx-3'
-const SShowTaskButton = styled.button`
   border-radius: 10px;
   background-color: #c6eeff;
   font-weight: bold;
@@ -122,4 +123,5 @@ const SCancelButton = styled.button`
   font-weight: bold;
   font-size: 11px;
   color: #7c7a00;
+  text-align: right;
 `

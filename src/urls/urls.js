@@ -1,5 +1,5 @@
-const DEFAULT_API_URL = 'https://atsushi-todolist-pf.herokuapp.com/api/v1'
-// const DEFAULT_API_URL = 'http://localhost:3000/api/v1'
+// const DEFAULT_API_URL = 'https://atsushi-todolist-pf.herokuapp.com/api/v1'
+const DEFAULT_API_URL = 'http://localhost:3000/api/v1'
 
 export const taskIndexUrl = `${DEFAULT_API_URL}/tasks`;
 
